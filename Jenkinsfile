@@ -7,15 +7,15 @@ pipeline {
     }
 
         stages {
-        stage("install deps") {
+            stage("install deps") {
             steps {
-                sh 'pip install -r requirements.txt' 
+                    sh 'pip install -r requirements.txt' 
                 }
             }
-        }
-        stage("test"){
-            steps{
-                sh 'python manage.py test'
+            stage("test"){
+                steps{
+                    sh 'python manage.py test'
+                }
             }
-        }
+    }
 }
