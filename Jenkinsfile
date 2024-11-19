@@ -13,5 +13,9 @@ pipeline {
                 }
             }
         }
-    }
+        stage("test"){
+            steps{
+                sh 'python manage.py test'
+            }
+        }
 }
