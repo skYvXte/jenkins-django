@@ -1,9 +1,12 @@
 pipeline {
     agent any
+    environment {
+        IMAGE_NAME = 'skyvxte/devops2024_django'        
+    }
     stages {
         stage ("build"){
             steps {
-                sh "docker build . -t skyvxte/devops2024_django:${GIT_COMMIT} -t skyvxte/devops2024_django:latest"
+                sh "docker build . -t ${IMAGE_NAME}:${GIT_COMMIT} -t ${IMAGE_NAME}:latest"
             }
         }
     }
