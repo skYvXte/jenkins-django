@@ -7,6 +7,12 @@ pipeline {
     }
 
         stages {
+            stage("checkout"){
+                steps{
+                    git url: "${GIT_URL}",
+                    branch: "${GIT_BRANCH}"
+                }
+            }
             stage("install deps") {
             steps {
                     sh 'pip install -r requirements.txt' 
