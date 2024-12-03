@@ -5,17 +5,23 @@ pipeline {
             args '-u root'
         }
     }
-    stages {
-        stage("deps") {
-            steps {
-                sh 'pip install -r requirements.txt'
-                
+
+        stages {
+            stage("checkout"){
+                steps{
+                    git url: "${GIT_URL}",
+                    branch: "${GIT_BRANCH}"
+                }
             }
-        }
-        stage("test") {
+            stage("install deps") {
             steps {
-                sh 'python manage.py test'
+                    sh 'pip install -r requirements.txt' 
+                }
             }
-        }
+            stage("test"){
+                steps{
+                    sh 'python manage.py test'
+                }
+            }
     }
 }
