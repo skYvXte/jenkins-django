@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMAGE_NAME = 'skYvXte/devops2024_django'
-        HUB_CRED_ID = 'skYvXte_dockerhub'
+        IMAGE_NAME = 'skyvxte/devops2024_django'
     }
     stages {
         stage("checkout"){
@@ -14,20 +13,6 @@ pipeline {
         stage("build") {
             steps {
                 sh "docker build . -t ${IMAGE_NAME}:${GIT_COMMIT} -t ${IMAGE_NAME}:latest"
-            }
-        }
-        stage("push") {
-            steps {
-                withCredentials(
-                    [
-                        usernamePassword(credentialsId: "${HUB_CRED_ID}", 
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
-                        ]
-                    ) {
-                        sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-                        sh "docker push ${IMAGE_NAME}:${GIT_COMMIT}"
-                        sh "docker push ${IMAGE_NAME}:latest"
-                    }
             }
         }
     }
