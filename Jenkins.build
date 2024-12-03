@@ -1,15 +1,9 @@
 pipeline {
     agent any
     environment {
-        IMAGE_NAME = 'skyvxte/devops2024_django'
+        IMAGE_NAME = 'iorp/devops2024_django'
     }
     stages {
-        stage("chekckout"){
-            steps{
-                git url:"${GIT_URL}",
-                branch: "${GIT_BRANCH}"
-            }
-        }
         stage("build") {
             steps {
                 sh "docker build . -t ${IMAGE_NAME}:${GIT_COMMIT} -t ${IMAGE_NAME}:latest"
