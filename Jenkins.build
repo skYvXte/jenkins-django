@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage("chekckout"){
             steps{
-                git url:"${GIT_URL}"
+                git url:"${GIT_URL}",
                 branch: "${GIT_BRANCH}"
             }
         }
