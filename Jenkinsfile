@@ -2,6 +2,9 @@ pipeline {
     agent any
     environment {
         IMAGE_NAME = "skyvxte/jenkins-django"
+        PROD_KEY_CRED_ID = 	"devops_prod_key"
+        PROD_ADDRESS_CRED_ID = "devops_prod_address"
+        PROJECT_NAME = "shimansky_django"
     }
     stages {
         stage("test") {
@@ -35,6 +38,16 @@ pipeline {
                     sh "docker push ${IMAGE_NAME}:latest"
                     sh "docker push ${IMAGE_NAME}:${GIT_COMMIT}"
                 }
+            }
+        }
+        stage("deploy"){
+            withCredentials(
+                [
+                   sshUserPrivateKey(credentialsId: "${PROD_CRED_ID}", keyFileVariable: 'KEY_FILE', usernameVariable:'USERNAME'),
+                       string(credentialsId: "${PROD_ADDRESS_CRED_ID}", variable:'SERVER_ADDRESS') 
+                ]
+            ) {
+                sh 'ssh -o StrictHostKeyChecking=no -i ${KEY_FILE} ${USERNAME}@${SERVER_ADDRESS} mkdir -p ${PROJECT_NAME}'
             }
         }
     }
