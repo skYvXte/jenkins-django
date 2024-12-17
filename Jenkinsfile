@@ -28,7 +28,7 @@ pipeline {
             steps{
                 withCredentials(
                     [
-                        usernamePassword(usernameVariable: 'LOGIN', passwordVariable: 'PASSWORD', credentialId: 'skYvXte_dockerhub')
+                        usernamePassword(usernameVariable: 'LOGIN', passwordVariable: 'PASSWORD', credentialsId: 'skYvXte_dockerhub')
                     ]
                 ) {
                     sh "docker login -u ${LOGIN} -p ${PASSWORD}"
