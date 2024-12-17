@@ -33,7 +33,7 @@ pipeline {
                 ) {
                     sh "docker login -u ${LOGIN} -p ${PASSWORD}"
                     sh "docker push ${IMAGE_NAME}:latest"
-                    sh "docker puh ${IMAGE_NAME}:${GIT_COMMIT}"
+                    sh "docker push ${IMAGE_NAME}:${GIT_COMMIT}"
                 }
             }
         }
