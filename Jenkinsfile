@@ -2,9 +2,9 @@ pipeline {
     agent any
     environment {
         IMAGE_NAME = "skyvxte/jenkins-django"
-        PROD_KEY_CRED_ID = "devops_prod_key"
+        PROD_CRED_ID = "devops_prod_key"
         PROD_ADDRESS_CRED_ID = "devops_prod_address"
-        PROJECT_NAME = "shimansky_django"
+        PROJECT_NAME = "common_django"
     }
     stages {
         stage("test") {
@@ -27,17 +27,17 @@ pipeline {
                     ]
             }
         }
-        stage("push"){
-            steps{
+        stage("push") {
+            steps {
                 withCredentials(
                     [
                         usernamePassword(usernameVariable: 'LOGIN', passwordVariable: 'PASSWORD', credentialsId: 'skYvXte_dockerhub')
-                    ]
-                ) {
-                    sh "docker login -u ${LOGIN} -p ${PASSWORD}"
-                    sh "docker push ${IMAGE_NAME}:latest"
-                    sh "docker push ${IMAGE_NAME}:${GIT_COMMIT}"
-                }
+                        ]
+                    ) {
+                        sh 'docker login -u ${LOGIN} -p ${PASSWORD}'
+                        sh 'docker push ${IMAGE_NAME}:latest'
+                        sh 'docker push ${IMAGE_NAME}:${GIT_COMMIT}'
+                    }
             }
         }
         stage("deploy") {
@@ -55,6 +55,6 @@ pipeline {
                 }
             }
         }
-        
+
     }
 }
