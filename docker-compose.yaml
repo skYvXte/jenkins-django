@@ -4,4 +4,4 @@ services:
   app:
       image: skyvxte/jenkins-django:latest
       ports:
-            "8100:8000"
+           - "8100:8000"
