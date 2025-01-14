@@ -4,7 +4,7 @@ pipeline {
         IMAGE_NAME = "skyvxte/jenkins-django"
         PROD_CRED_ID = "devops_prod_key"
         PROD_ADDRESS_CRED_ID = "devops_prod_address"
-        PROJECT_NAME = "common_django"
+        PROJECT_NAME = "sky_django"
     }
     stages {
         stage("test") {
